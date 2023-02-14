@@ -277,7 +277,6 @@ function changeNumberOfUnits(action, id) {
       if (numberOfUnits === 1 && action === "minus") {
         removeItemFromCart(item.id);
 
-        // console.log('id', item.id);
       }
 
       if (action === "minus" && numberOfUnits > 1) {
