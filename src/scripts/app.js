@@ -34,11 +34,7 @@ function loadData() {
 
 
 // Price range filter
-let startProductsRender;
-let endProductsRender;
 let filteredProducts;
-let newLowPriceRange;
-let newHighPriceRange;
 
 function renderFilterPriceRange(products) {
   filteredProducts = [...productsList];
@@ -103,9 +99,6 @@ function range() {
         const filterByText = productsList.filter((product) => product.price > minPrice && product.price < maxPrice);
         filteredProducts = filterByText;
 
-        newLowPriceRange = minPrice;
-        newLowPriceRange = maxPrice;
-
         renderProducts(filterByText);
         });
   });
@@ -130,9 +123,6 @@ function range() {
 
       console.log('range[0]', rangeInput[0]);
       console.log('minprice', minVal);
-
-      newLowPriceRange = minVal;
-      newLowPriceRange = maxVal;
 
     const filterByRange = productsList.filter((product) => product.price > minVal && product.price < maxVal);
     filteredProducts = filterByRange;
@@ -174,6 +164,7 @@ function renderProducts(products) {
 }
 
 // Sort by price
+// eslint-disable-next-line no-unused-vars
 function sortByPriceHandler(event) {
   productsEl.innerHTML = "";
 
@@ -203,7 +194,9 @@ function sortByPriceHandler(event) {
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCart();
 
+
 // Add to cart
+// eslint-disable-next-line no-unused-vars
 function addToCart(id) {
   if (cart.some((product) => product.id === id)) {
     // alert('Product already is in cart')
@@ -280,6 +273,13 @@ function changeNumberOfUnits(action, id) {
     let numberOfUnits = item.numberOfUnits;
 
     if (item.id === id) {
+
+      if (numberOfUnits === 1 && action === "minus") {
+        removeItemFromCart(item.id);
+
+        // console.log('id', item.id);
+      }
+
       if (action === "minus" && numberOfUnits > 1) {
         numberOfUnits--;
       }
@@ -301,6 +301,7 @@ function changeNumberOfUnits(action, id) {
 // Remove item from cart
 function removeItemFromCart(id) {
   cart = cart.filter((item) => item.id !== id);
+  console.log('cart2', cart)
 
   updateCart();
 }
