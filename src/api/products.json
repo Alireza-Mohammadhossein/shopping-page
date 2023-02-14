@@ -2,7 +2,7 @@
     {
       "id": 0,
       "name": "Iphone 12 Pro",
-      "price": 999,
+      "price": 999.99,
       "description":
         "The iPhone 12 Pro is a truly excellent phone, at a luxury price.",
       "imgSrc": "./src/img/iphone-12pro.jpg"
@@ -10,7 +10,7 @@
     {
       "id": 1,
       "name": "Iphone 13 Pro",
-      "price": 1199,
+      "price": 1199.99,
       "description":
         "The iPhone 13 Pro is the one of the most powerful phones ever.",
       "imgSrc": "./src/img/iphone-13pro.jpg"
@@ -18,7 +18,7 @@
     {
       "id": 2,
       "name": "Galaxy S23 Ultra",
-      "price": 1399,
+      "price": 1399.99,
       "description":
         "The Galaxy S23 Ultra is a lot, but in a good way.",
       "imgSrc": "./src/img/galaxy-s23ultra.jpg"
@@ -26,7 +26,7 @@
     {
       "id": 3,
       "name": "Galaxy S22 Ultra",
-      "price": 1199,
+      "price": 1199.99,
       "description":
         "The S22 Ultra throttled faster and harder under heavy use than the S21 Ultra.",
       "imgSrc": "./src/img/galaxy-s22ultra.jpg"
@@ -34,7 +34,7 @@
     {
       "id": 4,
       "name": "Galaxy ZFold 4",
-      "price": 1299,
+      "price": 1299.99,
       "description":
         "It's hard to imagine a phone getting much better than this.",
       "imgSrc": "./src/img/galaxy-zfold4.jpg"
@@ -42,7 +42,7 @@
     {
       "id": 5,
       "name": "Macbook Pro",
-      "price": 1799,
+      "price": 1799.99,
       "description":
         "The MacBook Pro is a very capable gaming laptop.",
       "imgSrc": "./src/img/macbook-pro.jpg"
@@ -50,7 +50,7 @@
     {
       "id": 6,
       "name": "Macbook Air",
-      "price": 1599,
+      "price": 1599.99,
       "description":
         "But the MacBook Air does all that and more, in a lighter and less costly package.",
       "imgSrc": "./src/img/macbook-air.jpg"
@@ -58,7 +58,7 @@
     {
       "id": 7,
       "name": "Zenbook Pro",
-      "price": 1699,
+      "price": 1699.99,
       "description":
         "The Asus ZenBook Pro 16X OLED is a top-notch creative laptop.",
       "imgSrc": "./src/img/asus-zenbookpro.jpg"
@@ -66,7 +66,7 @@
     {
       "id": 8,
       "name": "Asus Rog",
-      "price": 1499,
+      "price": 1499.99,
       "description":
         "The Zenbook 14 is the best laptop you can get for the price.",
       "imgSrc": "./src/img/asus-rog.jpg"
@@ -74,7 +74,7 @@
     {
       "id": 9,
       "name": "JBL Charge",
-      "price": 149,
+      "price": 149.99,
       "description":
         " On Apple's '60s Rock Essentials playlist, the Charge 5 consistently impresses.",
       "imgSrc": "./src/img/jbl-charge5.jpg"
@@ -82,7 +82,7 @@
     {
       "id": 10,
       "name": "JBL Partybox",
-      "price": 499,
+      "price": 499.99,
       "description":
         "The JBL PartyBox 300 is a Bluetooth speaker for loud parties.",
       "imgSrc": "./src/img/jbl-partybox.jpg"
@@ -90,7 +90,7 @@
     {
       "id": 11,
       "name": "JBL flip",
-      "price": 99,
+      "price": 99.99,
       "description":
         "If you want a solid party or adventure speaker, Flip 6 is a great option.",
       "imgSrc": "./src/img/jbl-flip.jpg"
