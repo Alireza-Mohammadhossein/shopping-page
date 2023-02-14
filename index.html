@@ -32,14 +32,16 @@
         <div class="sort-by-price">
           <span>Sort by price</span>
 
-          <select name="" id="sort" onchange="sortByPriceHandler()">
+          <select name="" id="sort" onchange="sortByPriceHandler(event)">
             <option value="default">Default</option>
             <option value="lowToHigh">Low to high</option>
             <option value="highToLow">High to low</option>
           </select>
         </div>
 
-        <div class="sort-by-range"></div>
+        <div class="sort-by-range">
+            <!-- render sort by range here -->
+        </div>
       </div>
       <div class="products-list">
         <div class="products">
@@ -57,7 +59,7 @@
         <div class="cart-items">
           <!-- render cart items here -->
         </div>
-        
+
         <div class="cart-footer">
           <div class="subtotal">Subtotal (0 items): $0</div>
           <div class="checkout">Proceed to checkout</div>

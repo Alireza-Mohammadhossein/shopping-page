@@ -6,7 +6,8 @@
   --bg-color: #fff;
   --link-color: #000;
   --link-size: 1.1rem;
-  --right-side-bg-color: 81, 187, 254;
+  --blue-color: 81, 187, 254;
+  --yellow-color: 242, 255, 58;
 }
 
 /* General CSS */
@@ -60,7 +61,7 @@ header {
 .shopping-bag .total-items-in-cart {
   margin-left: 10px;
   padding: 5px;
-  background-color: rgb(242, 255, 58);
+  background-color: rgba(var(--yellow-color));
   border-radius: 5px;
 }
 
@@ -93,23 +94,103 @@ header {
   text-align: center;
   border: 1px solid #999;
   padding: 10px;
+  cursor: pointer;
 }
 
 .sort-by-range {
   width: 30%;
 }
 
-/* PRODUCTS */
-.product {
-  width: 300px;
-  border: 1px solid rgba(var(--right-side-bg-color), 0.4);
-  border-radius: 10px;
-  padding: 5px;
+.price-input {
+  width: 100%;
+  display: flex;
+  margin: 30px 0 35px;
 }
 
-.product img {
+.price-input .field {
+  display: flex;
   width: 100%;
+  height: 45px;
+  align-items: center;
 }
+
+.field input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 19px;
+  margin-left: 12px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #999;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.price-input .separator {
+  width: 130px;
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider {
+  height: 5px;
+  position: relative;
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.slider .progress {
+  height: 100%;
+  left: 0;
+  right: 0;
+  position: absolute;
+  border-radius: 5px;
+  background: rgba(var(--blue-color));
+}
+
+.range-input {
+  position: relative;
+}
+
+.range-input input {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  background: none;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: rgba(var(--blue-color));
+  pointer-events: auto;
+  -webkit-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 17px;
+  width: 17px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(var(--blue-color));
+  pointer-events: auto;
+  -moz-appearance: none;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
 
 /* PRODUCTS */
 .products {
@@ -162,8 +243,8 @@ header {
   padding: 10px;
 }
 
-.products .item .item-container .add-to-cart {
-  background-color: rgba(var(--right-side-bg-color));
+.products .item-container .add-to-cart {
+  background-color: rgba(var(--blue-color));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,46 +253,22 @@ header {
   cursor: pointer;
 }
 
-.products .item .item-container .add-to-wishlist {
-  background-color: rgba(255, 21, 21, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 10px;
-  right: 60px;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.products .item .item-container .add-to-cart img {
-  width: 32px;
-  height: 32px;
-}
-
-.products .item .item-container .add-to-wishlist img {
-  width: 32px;
-  height: 32px;
-  padding: 5px;
-}
-
 /* CART */
 .cart {
   height: 100%;
   width: 25%;
-  background-color: #4169e1;
+  background-color: rgba(var(--blue-color));
   position: fixed;
   top: 0;
-  right: 0;
+  right: -25%;
   transition: all 0.5s ease;
-  transform: translateX(100%);
-  opacity: 0;
+  visibility: hidden;
   z-index: 2;
 }
 
 .cart.show {
-  opacity: 1;
+  visibility: visible;
+  right: 0;
   transform: translateX(0);
 }
 
@@ -223,7 +280,6 @@ header {
   position: relative;
 }
 
-/* close cart */
 .close-cart {
   width: 20px;
   height: 20px;
@@ -260,7 +316,7 @@ header {
 .cart-item .remove-item-btn {
   width: 20px;
   height: 20px;
-  background-color: rgb(242, 255, 58);
+  background-color: rgba(var(--yellow-color));
   border-radius: 50%;
   font-weight: bold;
   cursor: pointer;
@@ -276,6 +332,7 @@ header {
 
 .cart-item .item-info img {
   width: 75px;
+  margin-right: 5px;
 }
 
 /* unit price */
@@ -297,7 +354,7 @@ header {
 .cart-item .units .btn {
   width: 20px;
   height: 20px;
-  background-color: rgb(242, 255, 58);
+  background-color: rgba(var(--yellow-color));
   border-radius: 50%;
   font-weight: bold;
   cursor: pointer;
@@ -327,96 +384,6 @@ header {
 }
 
 .cart-footer .checkout {
-  background-color: rgb(242, 255, 58);
+  background-color: rgba(var(--yellow-color));
   cursor: pointer;
-}
-
-.price-input {
-  width: 100%;
-  display: flex;
-  margin: 30px 0 35px;
-}
-
-.price-input .field {
-  display: flex;
-  width: 100%;
-  height: 45px;
-  align-items: center;
-}
-
-.field input {
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 19px;
-  margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #999;
-  -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-.price-input .separator {
-  width: 130px;
-  display: flex;
-  font-size: 19px;
-  align-items: center;
-  justify-content: center;
-}
-
-.slider {
-  height: 5px;
-  position: relative;
-  background: #ddd;
-  border-radius: 5px;
-}
-
-.slider .progress {
-  height: 100%;
-  left: 0;
-  right: 0;
-  position: absolute;
-  border-radius: 5px;
-  background: #17a2b8;
-}
-
-.range-input {
-  position: relative;
-}
-
-.range-input input {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  top: -5px;
-  background: none;
-  pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  background: #17a2b8;
-  pointer-events: auto;
-  -webkit-appearance: none;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
-
-input[type="range"]::-moz-range-thumb {
-  height: 17px;
-  width: 17px;
-  border: none;
-  border-radius: 50%;
-  background: #17a2b8;
-  pointer-events: auto;
-  -moz-appearance: none;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }

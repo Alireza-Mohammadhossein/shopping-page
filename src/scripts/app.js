@@ -12,8 +12,10 @@ const totalItemsInCartEl = document.querySelector(".total-items-in-cart");
 // Range filter
 const rangeEl = document.querySelector(".sort-by-range");
 
+// BASE URL
 const url = "./src/api/products.json";
 
+// ComponentDidMount
 window.addEventListener("DOMContentLoaded", () => {
   loadData();
 });
@@ -27,86 +29,86 @@ function loadData() {
       productsList = data;
       renderFilterPriceRange(productsList);
       range();
-      //   renderProducts(productsList);
-      // updateProductList('default');
     });
 }
-
 
 // Price range filter
 let filteredProducts;
 
 function renderFilterPriceRange(products) {
   filteredProducts = [...productsList];
-  
-  const sortProductsByPriceList = [...productsList];
-  sortProductsByPriceList.sort((a, b) => a.price - b.price);
 
-  const lowPrice = sortProductsByPriceList[0].price;
-  const highPrice = sortProductsByPriceList[sortProductsByPriceList.length - 1].price;
-
+  const prices = [...productsList].map(({ price }) => price);
+  const [lowPrice, highPrice] = [Math.floor(Math.min(...prices)), Math.ceil(Math.max(...prices))];
 
   rangeEl.innerHTML = "";
 
   rangeEl.innerHTML += `
-        <div class="price-input">
-            <div class="field">
-                <span>Min</span>
-                <input type="number" class="input-min" value="${lowPrice}">
-            </div>
-            <div class="separator">-</div>
-            <div class="field">
-                <span>Max</span>
-                <input type="number" class="input-max" value="${highPrice}">
-            </div>
-            </div>
-            <div class="slider">
-                <div class="progress"></div>
-            </div>
-            <div class="range-input">
-                <input type="range" class="range-min" min="${lowPrice}" max="${highPrice}" value="${lowPrice}">
-                <input type="range" class="range-max" min="${lowPrice}" max="${highPrice}" value="${highPrice}">
-            </div>
-        </div>
-    `;
+    <div class="price-input">
+      <div class="field">
+        <span>Min</span>
+        <input type="number" class="input-min" value="${lowPrice}">
+      </div>
+
+      <div class="separator">-</div>
+
+      <div class="field">
+        <span>Max</span>
+        <input type="number" class="input-max" value="${highPrice}">
+      </div>
+    </div>
+    
+    <div class="slider">
+      <div class="progress"></div>
+    </div>
+    <div class="range-input">
+      <input type="range" class="range-min" min="${lowPrice}" max="${highPrice}" value="${lowPrice}">
+      <input type="range" class="range-max" min="${lowPrice}" max="${highPrice}" value="${highPrice}">
+    </div>
+  `;
 
   renderProducts(products);
 }
 
-
-
 function range() {
-    const rangeInput = document.querySelectorAll(".range-input input"),
+  const rangeInput = document.querySelectorAll(".range-input input"),
     priceInput = document.querySelectorAll(".price-input input"),
     range = document.querySelector(".slider .progress");
-    let priceGap = 100;
+  let priceGap = 100;
 
-    priceInput.forEach((input) => {
-        input.addEventListener("input", (e) => {
-        let minPrice = parseInt(priceInput[0].value),
-            maxPrice = parseInt(priceInput[1].value);
+  priceInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      let [minPrice, maxPrice] = [
+        parseInt(priceInput[0].value),
+        parseInt(priceInput[1].value),
+      ];
 
-        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
-            if (e.target.className === "input-min") {
-            rangeInput[0].value = minPrice;
-            range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
-            } else {
-            rangeInput[1].value = maxPrice;
-            range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-            }
+      if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+        if (e.target.className === "input-min") {
+          rangeInput[0].value = minPrice;
+          range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+        } else {
+          rangeInput[1].value = maxPrice;
+          range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
         }
+      }
 
-        const filterByText = productsList.filter((product) => product.price > minPrice && product.price < maxPrice);
-        filteredProducts = filterByText;
+      const filterByText = productsList.filter(
+        (product) => product.price > minPrice && product.price < maxPrice
+      );
 
-        renderProducts(filterByText);
-        });
+      filteredProducts = filterByText;
+
+      renderProducts(filterByText);
+    });
   });
 
   rangeInput.forEach((input) => {
     input.addEventListener("input", (e) => {
-      let minVal = parseInt(rangeInput[0].value),
-        maxVal = parseInt(rangeInput[1].value);
+      let [minVal, maxVal] = [
+        parseInt(rangeInput[0].value),
+        parseInt(rangeInput[1].value),
+      ];
 
       if (maxVal - minVal < priceGap) {
         if (e.target.className === "range-min") {
@@ -121,19 +123,15 @@ function range() {
         range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
       }
 
-      console.log('range[0]', rangeInput[0]);
-      console.log('minprice', minVal);
+      const productsInPriceRange = productsList.filter(
+        ({ price }) => price > minVal && price < maxVal
+      );
+      filteredProducts = productsInPriceRange;
 
-    const filterByRange = productsList.filter((product) => product.price > minVal && product.price < maxVal);
-    filteredProducts = filterByRange;
-
-    renderProducts(filterByRange);
+      renderProducts(productsInPriceRange);
     });
   });
 }
-
-
-
 
 // Render products
 function renderProducts(products) {
@@ -141,25 +139,26 @@ function renderProducts(products) {
 
   products.forEach((product) => {
     productsEl.innerHTML += `
-                <div class="item">
-                    <div class="item-container">
-                        <div class="item-img">
-                            <img src="${product.imgSrc}" alt="${product.name}">
-                        </div>
-                        <div class="desc">
-                            <h2>${product.name}</h2>
-                            <h2><small>$</small>${product.price}</h2>
-                            <p>
-                            ${product.description}
-                            </p>
-                        </div>
-                        <div class="add-to-cart" onclick="addToCart(${product.id})">
-                            <!-- <img src="./icons/bag-plus.png" alt="add to cart"> -->
-                            Add to cart
-                        </div>
-                    </div>
-                </div>
-            `;
+      <div class="item">
+        <div class="item-container">
+          <div class="item-img">
+              <img src="${product.imgSrc}" alt="${product.name}">
+          </div>
+          
+          <div class="desc">
+            <h2>${product.name}</h2>
+            <h2><small>$</small>${product.price}</h2>
+            <p>
+            ${product.description}
+            </p>
+          </div>
+
+          <div class="add-to-cart" onclick="addToCart(${product.id})">
+              Add to cart
+          </div>
+        </div>
+      </div>
+    `;
   });
 }
 
@@ -189,17 +188,14 @@ function sortByPriceHandler(event) {
   }
 }
 
-
 // Cart Array
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCart();
-
 
 // Add to cart
 // eslint-disable-next-line no-unused-vars
 function addToCart(id) {
   if (cart.some((product) => product.id === id)) {
-    // alert('Product already is in cart')
     changeNumberOfUnits("plus", id);
   } else {
     const selectedProduct = productsList.find((product) => product.id === id);
@@ -238,32 +234,35 @@ function renderSubtotal() {
   totalItemsInCartEl.innerHTML = totalItems;
 }
 
-// Render Cart items
+// Render Cart item
 function renderCartItems() {
   cartItemsEl.innerHTML = "";
 
   cart.forEach((item) => {
     cartItemsEl.innerHTML += `
-            <div class="cart-item">
-                <div class="remove-item">
-                    <div class="remove-item-btn" onclick="removeItemFromCart(${item.id})">
-                        x
-                    </div>
-                </div>
-                <div class="item-info">
-                    <img src="${item.imgSrc}" alt="${item.name}">
-                    <h4>${item.name}</h4>
-                </div>
-                <div class="unit-price">
-                    <small>$</small>${item.price}
-                </div>
-                <div class="units">
-                    <div class="btn minus" onclick="changeNumberOfUnits('minus', ${item.id})">-</div>
-                    <div class="number">${item.numberOfUnits}</div>
-                    <div class="btn plus" onclick="changeNumberOfUnits('plus', ${item.id})">+</div>
-                </div>
-            </div>
-        `;
+      <div class="cart-item">
+        <div class="remove-item">
+          <div class="remove-item-btn" onclick="removeItemFromCart(${item.id})">
+            x
+          </div>
+        </div>
+        
+        <div class="item-info">
+          <img src="${item.imgSrc}" alt="${item.name}">
+          <h4>${item.name}</h4>
+        </div>
+
+        <div class="unit-price">
+            <small>$</small>${item.price}
+        </div>
+
+        <div class="units">
+          <div class="btn minus" onclick="changeNumberOfUnits('minus', ${item.id})">-</div>
+          <div class="number">${item.numberOfUnits}</div>
+          <div class="btn plus" onclick="changeNumberOfUnits('plus', ${item.id})">+</div>
+        </div>
+      </div>
+    `;
   });
 }
 
@@ -273,12 +272,6 @@ function changeNumberOfUnits(action, id) {
     let numberOfUnits = item.numberOfUnits;
 
     if (item.id === id) {
-
-      if (numberOfUnits === 1 && action === "minus") {
-        removeItemFromCart(item.id);
-
-      }
-
       if (action === "minus" && numberOfUnits > 1) {
         numberOfUnits--;
       }
@@ -298,9 +291,9 @@ function changeNumberOfUnits(action, id) {
 }
 
 // Remove item from cart
+// eslint-disable-next-line no-unused-vars
 function removeItemFromCart(id) {
   cart = cart.filter((item) => item.id !== id);
-  console.log('cart2', cart)
 
   updateCart();
 }
@@ -315,4 +308,3 @@ closeCart.addEventListener("click", (e) => {
   e.preventDefault;
   cartList.classList.remove("show");
 });
-
